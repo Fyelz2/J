@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rekomendasi Pantai di Jogja</title>
+    <style>
+      /* Reset CSS */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        padding-top: 80px; /* To avoid navigation bar overlap */
+      }
+
+      /* Navigasi */
+      nav {
+        background-color: #0043fd;
+        padding: 15px;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      nav ul li {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        color: #58a6ff;
+      }
+
+      /* Header */
+      header {
+        background-image: url("Tugu new.png");
+        background-size: cover;
+        background-position: center;
+        color: rgb(255, 255, 255);
+        padding: 150px 20px;
+        text-align: center;
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+      }
+
+      header h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      header p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+
+      /* Daftar Pantai */
+      .pantai-list {
+        padding: 60px 20px;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .pantai-list h2 {
+        font-size: 2.5rem;
+        color: #1e3a8a;
+        margin-bottom: 40px;
+      }
+
+      .pantai-list .pantai-item {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .pantai-list .pantai-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .pantai-item img {
+        max-width: 400px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .pantai-item div {
+        max-width: 500px;
+        padding: 20px;
+        color: #555;
+      }
+      .foto-pantai {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .pantai-item h3 {
+        font-size: 2rem;
+        color: #1e3a8a;
+        margin-bottom: 20px;
+      }
+
+      .pantai-item p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
+
+      /* Galeri Foto */
+      .galeri {
+        padding: 60px 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+      }
+
+      .galeri h2 {
+        font-size: 2.5rem;
+        color: #1e3a8a;
+        margin-bottom: 40px;
+      }
+
+      .galeri-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .galeri .foto {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .galeri .foto:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .foto img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .foto p {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 1.1rem;
+      }
+
+      /* Section Informasi */
+      .information-section {
+        padding: 60px 20px;
+        background-color: #fff;
+      }
+
+      .information-section h2 {
+        font-size: 2.5rem;
+        color: #1e3a8a;
+        margin-bottom: 20px;
+      }
+
+      .information-section ul {
+        list-style-type: disc;
+        margin-left: 30px;
+        font-size: 1.1rem;
+      }
+
+      .information-section ul li {
+        margin-bottom: 10px;
+      }
+
+      footer {
+        background-color: #1e3a8a;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+      }
+
+      footer p {
+        font-size: 1rem;
+      }
+
+      /* Media Queries for Responsiveness */
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 2.5rem;
+        }
+
+        header p {
+          font-size: 1.1rem;
+        }
+
+        .pantai-list h2 {
+          font-size: 2rem;
+        }
+
+        .pantai-item {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .pantai-item img {
+          width: 100%;
+          height: auto;
+        }
+
+        .pantai-item div {
+          max-width: 100%;
+          text-align: center;
+        }
+
+        .galeri h2 {
+          font-size: 2rem;
+        }
+
+        .information-section h2 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header h1 {
+          font-size: 2rem;
+        }
+
+        header p {
+          font-size: 1rem;
+        }
+
+        nav ul li {
+          display: block;
+          margin: 10px 0;
+        }
+
+        .pantai-item img {
+          width: 100%;
+          height: auto;
+        }
+
+        .pantai-item h3 {
+          font-size: 1.5rem;
+        }
+
+        .pantai-item p {
+          font-size: 0.9rem;
+        }
+
+        .galeri h2 {
+          font-size: 1.8rem;
+        }
+
+        footer p {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Menu Navigasi -->
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#pantai">Pantai</a></li>
+        <li><a href="#rute">Rute</a></li>
+        <li><a href="#fasilitas">Fasilitas</a></li>
+        <li><a href="#aktivitas">Aktivitas</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="home">
+      <h1>Rekomendasi Pantai di Jogja</h1>
+      <p>Temukan pantai-pantai terbaik di Yogyakarta untuk liburanmu!</p>
+    </header>
+
+    <!-- Daftar Pantai -->
+    <section class="pantai-list" id="pantai">
+      <h2>Pantai yang Wajib Dikunjungi di Jogja</h2>
+      <div class="pantai-item">
+        <img src="Paris.png" alt="Pantai Parangtritis" />
+        <div>
+          <h3>Pantai Parangtritis</h3>
+          <p>
+            Pantai Parangtritis merupakan salah satu pantai yang paling terkenal
+            di Jogja. Terletak di selatan kota Yogyakarta, pantai ini terkenal
+            dengan pasir hitamnya dan ombak yang besar, yang membuatnya populer
+            di kalangan peselancar. Selain itu, kamu juga bisa menikmati
+            keindahan matahari terbenam yang spektakuler.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Indrayanti.png" alt="Pantai Indrayanti" />
+        <div>
+          <h3>Pantai Indrayanti</h3>
+          <p>
+            Pantai Indrayanti memiliki pasir putih yang lembut dan air laut yang
+            jernih. Dikenal sebagai pantai yang bersih dan terawat, pantai ini
+            menawarkan berbagai fasilitas wisata seperti warung makan, tempat
+            parkir yang luas, dan gazebo untuk bersantai menikmati keindahan
+            alam.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Pok Tunggal.png" alt="Pantai Pok Tunggal" />
+        <div>
+          <h3>Pantai Pok Tunggal</h3>
+          <p>
+            Pantai Pok Tunggal dikenal dengan batu karang besar yang menjulang
+            di tengah pantai dan suasana yang lebih tenang. Pantai ini
+            menawarkan pemandangan yang memukau dan sangat cocok untuk bersantai
+            atau berkemah sambil menikmati alam yang asri.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="sundak.png" alt="Pantai Sundak" />
+        <div>
+          <h3>Pantai Sundak</h3>
+          <p>
+            Pantai Sundak terkenal dengan keindahan batu karang dan pasir
+            putihnya yang lembut. Pantai ini memiliki atmosfer yang damai dan
+            cocok untuk mereka yang ingin menikmati ketenangan di tengah alam
+            yang indah. Pantai ini juga sering digunakan untuk kegiatan
+            snorkeling.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Siung.png" alt="Pantai Siung" />
+        <div>
+          <h3>Pantai Siung</h3>
+          <p>
+            Pantai Siung adalah surga bagi para pecinta olahraga panjat tebing.
+            Terletak di Gunung Kidul, pantai ini menawarkan tebing-tebing karang
+            yang menantang dan pemandangan laut yang menakjubkan. Selain itu,
+            pantai ini juga memiliki pasir putih dan air laut yang jernih.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Timang.png" alt="Pantai Timang" />
+        <div>
+          <h3>Pantai Timang</h3>
+          <p>
+            Pantai Timang adalah pantai yang menawarkan pengalaman unik dengan
+            jembatan gantung yang menghubungkan pulau kecil di tengah laut.
+            Selain itu, pantai ini juga dikenal sebagai spot yang menarik untuk
+            bermain gondola dan menikmati pemandangan yang spektakuler.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Watu bolong.png" alt="Pantai Watu Bolong" />
+        <div>
+          <h3>Pantai Watu Bolong</h3>
+          <p>
+            Pantai Watu Bolong terkenal dengan batu karang besar yang memiliki
+            lubang di tengahnya, yang menjadi ciri khas pantai ini. Lokasinya
+            yang cukup terpencil membuat pantai ini cocok bagi wisatawan yang
+            ingin menikmati suasana sepi dan pemandangan yang memukau.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Ngandong.png" alt="Pantai Ngandong" />
+        <div>
+          <h3>Pantai Ngandong</h3>
+          <p>
+            Pantai Ngandong adalah pantai yang relatif sepi namun memiliki
+            pesona alam yang luar biasa. Pantai ini dikenal dengan pasir
+            putihnya yang lembut dan batu karang yang menambah keindahannya.
+            Cocok untuk kamu yang ingin berlibur dengan suasana yang tenang dan
+            jauh dari keramaian.
+          </p>
+        </div>
+      </div>
+      <div class="pantai-item">
+        <img src="Glagah.png" alt="Pantai Glagah" />
+        <div>
+          <h3>Pantai Glagah Indah</h3>
+          <p>
+            Pantai Glagah Indah terletak di daerah Kulon Progo, dan terkenal
+            dengan hamparan pasir hitamnya yang kontras dengan warna biru laut.
+            Pantai ini juga memiliki laguna yang tenang, sangat cocok untuk
+            bersantai dan menikmati keindahan alam yang menenangkan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galeri Foto Pantai -->
+    <section class="galeri" id="galeri">
+      <h2>Galeri Foto Pantai</h2>
+      <div class="galeri-container">
+        <div class="foto">
+          <img src="Paris new.png" alt="Pantai Parangtritis" />
+          <p>Pantai Parangtritis</p>
+        </div>
+        <div class="foto">
+          <img src="Indrayanti new.png" alt="Pantai Indrayanti" />
+          <p>Pantai Indrayanti</p>
+        </div>
+        <div class="foto">
+          <img src="Pok new.png" alt="Pantai Pok Tunggal" />
+          <p>Pantai Pok Tunggal</p>
+        </div>
+        <div class="foto">
+          <img src="sundak new.png" alt="Pantai Sundak" />
+          <p>Pantai Sundak</p>
+        </div>
+        <div class="foto">
+          <img src="Siung new.png" alt="Pantai Siung" />
+          <p>Pantai Siung</p>
+        </div>
+        <div class="foto">
+          <img src="Timang new2.png" alt="Pantai Timang" />
+          <p>Pantai Timang</p>
+        </div>
+        <div class="foto">
+          <img src="Watu bolong new.png" alt="Pantai Watu Bolong" />
+          <p>Pantai Watu Bolong</p>
+        </div>
+        <div class="foto">
+          <img src="Ngandong new.png" alt="Pantai Ngandong" />
+          <p>Pantai Ngandong</p>
+        </div>
+        <div class="foto">
+          <img src="Glagah new2..png" alt="Pantai Gladah Indah" />
+          <p>Pantai Gladah Indah</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rute Menuju Pantai -->
+    <section class="information-section" id="rute">
+      <div class="container">
+        <h2>Rute Menuju Pantai-pantai di Jogja</h2>
+        <p>
+          Berikut adalah beberapa rute yang bisa diambil untuk menuju
+          pantai-pantai terkenal di Jogja:
+        </p>
+        <ul>
+          <li>
+            <strong>Pantai Parangtritis:</strong> Dari Yogyakarta, ikuti jalan
+            menuju Parangtritis melalui Jalan Parangtritis No. 1. Perjalanan
+            sekitar 1,5 jam menggunakan mobil.
+          </li>
+          <a href="https://maps.app.goo.gl/dh39uHmRNGFEwUwk9">
+            <img
+              src="Peta Parangtritis.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Parangtritis</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Indrayanti:</strong> Dari Yogyakarta, arahkan
+            kendaraan menuju Wonosari dan lanjutkan menuju Pantai Indrayanti
+            yang terletak di wilayah Gunung Kidul.
+          </li>
+          <a href="https://maps.app.goo.gl/rjWSGygQxnSSuM1G7">
+            <img
+              src="Peta Indrayanti.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Indrayanti</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Pok Tunggal:</strong> Arahkan kendaraan ke Gunung
+            Kidul dan lanjutkan perjalanan menuju pantai yang terkenal dengan
+            batu karang besar ini.
+          </li>
+          <a href="https://maps.app.goo.gl/n739vuuKuxYfPsPj8">
+            <img
+              src="Map Pok Tunggal.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Pok Tunggal</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Sundak:</strong> Setelah menuju Wonosari, teruskan
+            perjalanan ke arah selatan ke pantai Sundak yang terkenal dengan
+            keindahan batu karangnya.
+          </li>
+          <a href="https://maps.app.goo.gl/ZZFvytaYSrLXGPne8">
+            <img
+              src="Map Sundak.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Sundak</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Siung:</strong> Dari Yogyakarta, arahkan kendaraan ke
+            arah Wonosari dan lanjutkan perjalanan menuju Pantai Siung, yang
+            terkenal dengan tebing-tebingnya.
+          </li>
+          <a href="https://maps.app.goo.gl/UrrYxEYuBghYNtrQ6">
+            <img
+              src="Map Siung.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Siung</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Timang:</strong> Pantai Timang terletak di sekitar
+            Gunung Kidul, dan dapat dicapai dengan kendaraan melalui jalur
+            Wonosari, lalu menuju Pantai Timang yang eksotis.
+          </li>
+          <a href="https://maps.app.goo.gl/8bPkGDVaJuLmki7B8">
+            <img
+              src="Map Timang.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Timang</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Watu Bolong:</strong> Pantai Watu Bolong terletak di
+            bagian selatan Gunung Kidul, dengan jalan menuju pantai yang mudah
+            diakses.
+          </li>
+          <a href="https://maps.app.goo.gl/BVhdtRB1JutgWFY77">
+            <img
+              src="Map Bolong.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Watu Bolong</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Ngandong:</strong> Pantai ini terletak di Gunung
+            Kidul, untuk menuju ke sini, dari Yogyakarta, arahkan kendaraan
+            menuju Wonosari, lalu menuju ke arah timur laut untuk mencapai
+            Pantai Ngandong, yang terkenal dengan pemandangan indah dan air yang
+            jernih.
+          </li>
+          <a href="https://maps.app.goo.gl/egcHXgywqoRqAxaW9">
+            <img
+              src="Map Ngandong.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Ngandong</p>
+            </div>
+          </a>
+          <br />
+          <li>
+            <strong>Pantai Glagah Indah:</strong> Pantai Glagah Indah terletak
+            di daerah Kabupaten Kulon Progo, sekitar 1,5 jam perjalanan dari
+            Yogyakarta. Anda dapat mengakses pantai ini melalui jalur menuju
+            Jembatan Glagah.
+          </li>
+          <a href="https://maps.app.goo.gl/VpyScx81B33yMyFi9">
+            <img
+              src="Map Gladah indah.png"
+              style="width: 200px; align-items: center"
+            />
+            <div>
+              <p>Pantai Gladah Indah</p>
+            </div>
+          </a>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Fasilitas di Pantai -->
+    <section class="information-section" id="fasilitas">
+      <div class="container">
+        <h2>Fasilitas di Pantai-pantai Jogja</h2>
+        <p>
+          Pantai-pantai di Jogja memiliki fasilitas yang cukup lengkap untuk
+          menunjang kenyamanan pengunjung. Berikut adalah beberapa fasilitas
+          umum yang dapat ditemukan di pantai-pantai tersebut:
+        </p>
+        <ul>
+          <li>
+            <strong>Area Parkir:</strong> Sebagian besar pantai memiliki area
+            parkir yang luas untuk kendaraan roda dua maupun roda empat.
+          </li>
+          <li>
+            <strong>Kamar Mandi Umum:</strong> Beberapa pantai menyediakan
+            fasilitas kamar mandi umum bagi pengunjung yang ingin berganti
+            pakaian setelah berenang atau bermain air.
+          </li>
+          <li>
+            <strong>Warung Makan:</strong> Tersedia banyak warung yang menjual
+            makanan dan minuman, termasuk seafood segar yang khas di sekitar
+            pantai.
+          </li>
+          <li>
+            <strong>Gazebo dan Tempat Duduk:</strong> Banyak pantai yang
+            dilengkapi dengan gazebo atau tempat duduk nyaman untuk bersantai
+            sambil menikmati pemandangan laut.
+          </li>
+          <li>
+            <strong>Tempat Penyewaan Peralatan:</strong> Beberapa pantai seperti
+            Pantai Indrayanti dan Pantai Pok Tunggal menyediakan tempat
+            penyewaan peralatan snorkeling, perahu, dan alat selancar.
+          </li>
+          <li>
+            <strong>Wi-Fi Gratis:</strong> Beberapa pantai populer seperti
+            Pantai Parangtritis memiliki fasilitas Wi-Fi gratis yang dapat
+            diakses oleh pengunjung yang ingin tetap terhubung saat menikmati
+            liburan mereka.
+          </li>
+          <li>
+            <strong>Penginapan:</strong> Beberapa pantai di Jogja, seperti
+            Pantai Indrayanti dan Pantai Timang, memiliki penginapan yang dekat
+            dengan pantai untuk memudahkan wisatawan yang ingin menginap dan
+            menikmati suasana pantai lebih lama.
+          </li>
+          <li>
+            <strong>Kawasan Ramah Keluarga:</strong> Beberapa pantai seperti
+            Pantai Glagah dilengkapi dengan fasilitas untuk keluarga seperti
+            taman bermain anak dan jalur pejalan kaki yang nyaman.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Aktivitas yang Bisa Dilakukan di Pantai -->
+    <section class="information-section" id="aktivitas">
+      <div class="container">
+        <h2>Aktivitas yang Bisa Dilakukan di Pantai</h2>
+        <p>
+          Pantai-pantai di Jogja menawarkan berbagai aktivitas seru dan
+          menyenangkan yang bisa dilakukan oleh pengunjung. Beberapa aktivitas
+          yang populer di antaranya:
+        </p>
+        <ul>
+          <li>
+            <strong>Bermain Selancar:</strong> Pantai Parangtritis dan Pantai
+            Indrayanti terkenal dengan ombak besar yang cocok untuk kegiatan
+            selancar bagi para penggemar olahraga air.
+          </li>
+          <li>
+            <strong>Berenang:</strong> Beberapa pantai seperti Pantai Indrayanti
+            dan Pantai Pok Tunggal memiliki ombak yang lebih tenang, sangat
+            cocok untuk berenang dan bermain air.
+          </li>
+          <li>
+            <strong>Foto-foto:</strong> Keindahan alam dan pemandangan matahari
+            terbenam yang menakjubkan membuat pantai-pantai ini menjadi tempat
+            yang sangat populer bagi para pecinta fotografi.
+          </li>
+          <li>
+            <strong>Jalan-jalan di Pasir Putih:</strong> Nikmati keindahan pasir
+            putih yang bersih sambil berjalan-jalan di sepanjang pantai,
+            terutama di Pantai Indrayanti dan Pantai Pok Tunggal.
+          </li>
+          <li>
+            <strong>Menikmati Kuliner:</strong> Jangan lewatkan kesempatan untuk
+            menikmati kuliner khas pantai seperti ikan bakar, cumi, dan berbagai
+            makanan laut segar lainnya yang disajikan di warung-warung sekitar
+            pantai.
+          </li>
+          <li>
+            <strong>Menikmati Keindahan Alam:</strong> Aktivitas santai lainnya
+            seperti berkemah atau menikmati pemandangan matahari terbenam di
+            Pantai Timang dan Pantai Sundak sangat populer di kalangan
+            wisatawan.
+          </li>
+          <li>
+            <strong>Panjat Tebing:</strong> Bagi yang suka tantangan, Pantai
+            Siung menawarkan kegiatan panjat tebing yang sangat menantang di
+            tebing-tebing karang sekitar pantai.
+          </li>
+          <li>
+            <strong>Snorkeling:</strong> Pantai Ngandong terkenal dengan airnya
+            yang jernih dan terumbu karang yang indah, menjadikannya tempat yang
+            ideal untuk snorkeling.
+          </li>
+          <li>
+            <strong>Wisata Perahu:</strong> Di Pantai Glagah, pengunjung dapat
+            menikmati wisata perahu menyusuri laut yang tenang, serta menikmati
+            pemandangan pesisir yang indah.
+          </li>
+          <li>
+            <strong>Spot Foto Alam:</strong> Pantai Ngandong juga menawarkan
+            pemandangan alam yang eksotis, sangat cocok untuk pengunjung yang
+            suka fotografi alam dan pemandangan laut.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section class="information-section" id="tentang">
+      <div class="container">
+        <h2>Tentang Website Ini</h2>
+        <p>
+          Website ini hadir untuk memberikan rekomendasi pantai-pantai terbaik
+          di Yogyakarta, serta informasi terkait aktivitas yang bisa dilakukan
+          dan fasilitas yang ada di setiap pantai. Kami berharap informasi ini
+          dapat membantu Anda merencanakan liburan yang menyenangkan di Jogja.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Rekomendasi Pantai Jogja | All Rights Reserved</p>
+    </footer>
+  </body>
+</html>
